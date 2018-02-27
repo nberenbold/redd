@@ -97,10 +97,10 @@ module Redd
       raise e if @failures > @max_retries
       warn "Redd got a #{e.class.name} error (#{e.message}), retrying..."
       retry
-    rescue Errors::RateLimitError => e
-      warn "Redd was rate limited for #{e.duration} seconds, waiting..."
-      sleep e.duration
-      retry
+    # rescue Errors::RateLimitError => e
+    #  warn "Redd was rate limited for #{e.duration} seconds, waiting..."
+    #  sleep e.duration
+    #  retry
     else
       @failures = 0
       response
