@@ -150,7 +150,7 @@ module Redd
       #   posted there before (you monster)
       # @param sendreplies [Boolean] whether to send the replies to your inbox
       # @return [Submission] The returned object (url, id and name)
-      def submit(title, text: nil, url: nil, resubmit: false, sendreplies: true)
+      def submit(title, text: nil, url: nil, resubmit: false, sendreplies: true, video_poster_url: nil)
         params = {
           title: title, sr: read_attribute(:display_name),
           resubmit: resubmit, sendreplies: sendreplies
@@ -158,6 +158,7 @@ module Redd
         params[:kind] = url ? 'link' : 'self'
         params[:url]  = url  if url
         params[:text] = text if text
+        params[:video_poster_url] = video_poster_url if video_poster_url
         Submission.new(client, client.post('/api/submit', params).body[:json][:data])
       end
 
